@@ -10,30 +10,28 @@ import Dashboard from './pages/dashboard/Dashboard';
 
 function App() {
   
-  const isAuth = () => {
-   return sessionStorage.getItem('token')
-  }
-
+  const isAuth = () => sessionStorage.getItem('token')
+  
   const userAuth = isAuth()
  
 
   return (
     <div className="App">
       <BrowserRouter>
-      <AuthProvider >
-        <HeaderComponent/>
+
+        <AuthProvider >
+
+          <HeaderComponent/>
           <Routes>
 
-            <Route path='/register' element = {userAuth?<Navigate to={'/dashboard'}/>:<Register/>} 
-              />
-
-            <Route  path='/login' element = {userAuth?<Navigate to={'/dashboard'}/>:<Login/>} 
-              />
-            <Route  path='/dashboard' element = {userAuth? <Dashboard/>:<Navigate to={'/login'}/>} 
-              />
-              
+            <Route path='/register' element = {userAuth?<Navigate to={'/dashboard'}/>:<Register/>}/>
+            <Route  path='/login' element = {userAuth?<Navigate to={'/dashboard'}/>:<Login/>}/>        
+            <Route  path='/dashboard' element = {<PrivateRoute Component={<Dashboard/>} altLink={'/login'}/>}/> 
+                  
           </Routes>
+
           </AuthProvider>
+
       </BrowserRouter>
        
     </div>

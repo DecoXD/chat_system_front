@@ -7,7 +7,7 @@ const AuthProvider = ({children}) => {
 
 
 
-const {register,userAuth,login,getToken} = useAuthenticate()
+const {register,userAuth,login,getToken,logout} = useAuthenticate()
 
 const isAuthenticated = getToken()
 
@@ -16,7 +16,7 @@ const value = {
   isAuthenticated,
   userAuth,
   login,
- 
+  logout
 
 }
   return (

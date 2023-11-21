@@ -5,15 +5,13 @@ import PrimaryNav from './primaryNav/PrimaryNav'
 
 const HeaderComponent = () => {
   
-  const {isAuthenticated} = useContext(Context)
-  
-  
-  console.log(isAuthenticated,'coelhos')
+  const {isAuthenticated,logout} = useContext(Context)
+
   return (
     <header className={styles.header}>
         <h1>Go Tók</h1>
 
-        <PrimaryNav isAuth={isAuthenticated}/>
+        <PrimaryNav isAuth={isAuthenticated} handleLogout={logout}/>
     </header>
   )
 }

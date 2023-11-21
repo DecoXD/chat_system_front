@@ -54,6 +54,7 @@ const useAuthenticate = () => {
         if(!token){
             setError(err)
             setIsAuthenticated(false)
+            
             return
         }
         
@@ -67,10 +68,16 @@ const useAuthenticate = () => {
         return sessionStorage.getItem('token')
     }
 
+     function logout(){
+        sessionStorage.removeItem('token')
+        userAuth(null)
+        navigate('/')
+    }
+
     useEffect(() =>{
         return () => setCancelled(true)
     })
-    return {register,isAuthenticated,loading,error,login,userAuth,getToken}
+    return {register,isAuthenticated,loading,error,login,userAuth,getToken,logout}
 }
 
 export default useAuthenticate

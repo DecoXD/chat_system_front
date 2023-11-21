@@ -2,15 +2,39 @@ import { useState } from 'react'
 import Input from '../../components/Form/Input'
 import styles from './Register.module.css'
 import formStyles from '../../components/Form/Form.module.css'
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
+
+import { useAuthContext } from '../../context/authContext'
+
 const Register = () => {
+  const{register,isAuthenticate} = useAuthContext()
+
     const [name,setName] = useState('')
     const [login,setLogin] = useState('')
     const [password,setPassword] = useState('')
     const [confirmPassword,setConfirmPassword] = useState('')
 
-    function handleSubmit(e){
+    const navigate = useNavigate()
+    
+   
+
+
+    async function handleSubmit(e){
         e.preventDefault()
+        const userData = {
+          name,
+          login,
+          password,
+          confirmPassword
+        }
+        try {
+          await register(userData)
+        } catch (error) {
+          console.log(error)
+          navigate('/register')
+        }
+       
+     
         
     }
   return (
@@ -21,9 +45,8 @@ const Register = () => {
         <h2>Register</h2>
         <p>Cadastre-se gratuitamente</p>
 
-        <form action='/register'  
-          onSubmit={handleSubmit} 
-          className={formStyles.form_controll}>
+        <form   onSubmit={handleSubmit} 
+                className={formStyles.form_controll}>
 
             <Input type={'text'} name = {'name'} dataName={'name'} handleOnChange={(e)=>setName(e.target.value)} />
 
@@ -38,6 +61,7 @@ const Register = () => {
 
         </form>
         <p>ja possui acesso? <Link to="/login">entrar</Link></p>
+   
     </div>
     </section>
   )

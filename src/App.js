@@ -6,14 +6,14 @@ import { AuthProvider, useAuthContext } from './context/authContext';
 import { useEffect, useState } from 'react';
 import PrivateRoute from './store/PrivateRoute';
 import Dashboard from './pages/dashboard/Dashboard';
+import Messages from './components/chat/Messages';
+import ChatRoom from './components/chat/ChatRoom';
 
 
 function App() {
-  
+
   const isAuth = () => sessionStorage.getItem('token')
-  
-  const userAuth = isAuth()
- 
+
 
   return (
     <div className="App">
@@ -24,9 +24,10 @@ function App() {
           <HeaderComponent/>
           <Routes>
 
-            <Route path='/register' element = {userAuth?<Navigate to={'/dashboard'}/>:<Register/>}/>
-            <Route  path='/login' element = {userAuth?<Navigate to={'/dashboard'}/>:<Login/>}/>        
-            <Route  path='/dashboard' element = {<PrivateRoute Component={<Dashboard/>} altLink={'/login'}/>}/> 
+            <Route path='/register' element = {<PrivateRoute Component={<Register/>} altLink={'/dashboard'} auth={isAuth}/>}/>
+            <Route  path='/login' element = {<PrivateRoute Component={<Login/>} altLink={'/dashboard'} auth={isAuth}/>}/>        
+            <Route  path='/dashboard' element = {<PrivateRoute Component={<Dashboard/>} altLink={'/login'} auth={isAuth}/>}/> 
+            <Route path='/direct/:receiver' element={<ChatRoom/>}/>
                   
           </Routes>
 

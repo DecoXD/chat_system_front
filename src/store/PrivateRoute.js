@@ -5,8 +5,8 @@ import Register from '../pages/register/Register'
 import { useContext } from 'react'
 
 
-const PrivateRoute = ({Component,altLink}) => {
-    const {isAuthenticated} = useContext(Context)
+const PrivateRoute = ({Component,altLink,auth}) => {
+    const isAuthenticated = auth()
    
     const regEx = /\/(dashboard)\b/i
     const condition = regEx.test(altLink)

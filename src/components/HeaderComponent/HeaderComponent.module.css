@@ -2,3 +2,8 @@
     padding: 1rem;
     border-bottom:1px solid;
 }
+
+nav{
+    display: flex;
+    gap: 2rem;
+}
